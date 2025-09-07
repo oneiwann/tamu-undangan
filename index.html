@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Undangan Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+            color: #555;
+        }
+        textarea, input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .form-section {
+            background-color: #fafafa;
+            padding: 20px;
+            border: 1px dashed #ccc;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .form-section h3 {
+            margin-top: 0;
+            color: #777;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .whatsapp-btn {
+            background-color: #25D366;
+            color: white;
+        }
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+        }
+        .copy-btn {
+            background-color: #007bff;
+            color: white;
+        }
+        .copy-btn:hover {
+            background-color: #0056b3;
+        }
+        .note {
+            font-size: 12px;
+            color: #999;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Pembuat Link Undangan Digital</h1>
+    <p class="note">Catatan: semua yang dibawah textarea ini bisa di ubah sesuai dengan keinginan kecuali bagian *Tamu Undangan* karena itu akan otomatis ganti nama seperti yang kamu masukan di bagian nama penerima undangan</p>
+    <hr>
+    <div class="form-section">
+        <h3>Teks Pembuka</h3>
+        <textarea id="introTextarea" rows="12">Yth. Bapak/Ibu/Saudara/i
+*Tamu Undangan*
+Di Tempat
+---------------------------
+_Assalamualaikum Wr. Wb._
+Dengan segala kerendahan hati,
+kami mengundang Bapak/Ibu/Saudara/i dan teman-teman untuk menghadiri acara,
+=============
+*nikahan*
+=============
+*♥Save The Date♥*
+----------------
+_Pada_
+📅 Tanggal : *Tangal Acara*
+🕘 Pukul : *Waktu Acara*
+_Tempat_ 
+🏠 *Lihat pada linkundangan dibawah.*
+-----------------
+Untuk detail acaranya, bisa kunjungi link berikut.👇</textarea>
+    </div>
+
+    <div class="form-section">
+        <h3>Detail Undangan</h3>
+        <label for="guestName">Nama Penerima Undangan:</label>
+        <input type="text" id="guestName" placeholder="Masukkan nama tamu">
+        <label for="linkUrl">URL Undangan:</label>
+        <input type="text" id="linkUrl" value="https://oneiwann.github.io/wedding-invitation/" placeholder="Masukkan URL undangan">
+    </div>
+
+    <div class="form-section">
+        <h3>Teks Penutup</h3>
+        <textarea id="closingTextarea" rows="6">Kami sangat berharap Bapak/Ibu/Saudara/i dan teman-teman dapat menghadiri acara tersebut,
+--------------------------------
+Wassalamualaikum Wr. Wb,
+🙏 Hormat Kami,
+*Penyelenggara*</textarea>
+    </div>
+
+    <div class="button-group">
+        <button class="whatsapp-btn" onclick="shareOnWhatsApp()">
+            <img src="https://img.icons8.com/color/24/000000/whatsapp--v1.png" alt="WhatsApp Icon" style="vertical-align: middle; margin-right: 8px;">
+            Bagikan Via Whatsapp
+        </button>
+        <button class="copy-btn" onclick="copyToClipboard()">
+            <img src="https://img.icons8.com/material-outlined/24/ffffff/copy.png" alt="Copy Icon" style="vertical-align: middle; margin-right: 8px;">
+            Salin Teks
+        </button>
+    </div>
+    
+    <div class="note">
+        <p>Catatan: Perubahan teks pembuka & teks penutup akan disimpan setiap kali menekan tombol Bagikan atau Salin.</p>
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
