@@ -13,7 +13,7 @@ function generateMessage() {
     const personalLink = `${linkUrl}?to=${encodedGuestName}`;
     
     // Gabungkan seluruh teks menjadi satu pesan
-    const message = `${personalizedIntro}\n\n${personalLink}\n(Note: Disarankan Menggunakan Browser Chrome)\n\n${closingText}`;
+    const message = `${personalizedIntro}\n\n${personalLink}\n\n${closingText}`;
     
     return message;
 }
