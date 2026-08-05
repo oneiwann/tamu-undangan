@@ -596,7 +596,10 @@ function buildTabs() {
 function renderList() {
   const listEl = document.getElementById('guestList');
   const emptyEl = document.getElementById('emptyState');
-  const filtered = currentFilter === 'all' ? guests : guests.filter(g => g.oleh === currentFilter);
+  const filtered = (currentFilter === 'all'
+    ? [...guests]
+    : guests.filter(g => g.oleh === currentFilter)
+  ).reverse();
 
   listEl.innerHTML = '';
   emptyEl.style.display = filtered.length === 0 ? 'block' : 'none';
