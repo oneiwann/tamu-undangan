@@ -261,6 +261,30 @@
   .modal .btn-primary{width:100%;margin-top:18px;padding:12px;}
   .modal-error{color:#B3413B;font-size:12.5px;margin-top:8px;display:none;}
 
+  .pagination{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:8px;
+      margin-top:24px;
+  }
+
+  .pagination button{
+      padding:8px 14px;
+      border:1px solid var(--line);
+      background:var(--paper);
+      color:var(--maroon-dark);
+  }
+
+  .pagination button:disabled{
+      opacity:.5;
+  }
+
+  .pagination span{
+      font-size:13px;
+      color:var(--ink-soft);
+  }
+
   @media (max-width:480px){
     h1{font-size:28px;}
     .guest{flex-wrap:wrap;}
@@ -330,6 +354,7 @@
 
   <div class="loading" id="loadingState">Memuat data…</div>
   <div class="guest-list" id="guestList"></div>
+  <div id="pagination" class="pagination"></div>
   <div class="empty" id="emptyState" style="display:none;">Belum ada tamu. Tambahkan nama di atas ✦</div>
 
 </div>
@@ -355,7 +380,9 @@ Pada
 📌 Lokasi : Kalimeneng, Girigondo, Pituruh
 -----------------
 Untuk detail acaranya, bisa kunjungi link berikut.👇
+
 {{link}}
+
 Kami sangat berharap Bapak/Ibu/Saudara/i dan teman-teman dapat menghadiri acara tersebut,
 --------------------------------
 Wassalamualaikum Wr. Wb,
@@ -371,6 +398,8 @@ let auth = JSON.parse(localStorage.getItem(AUTH_KEY) || 'null');
 let prefs = JSON.parse(localStorage.getItem(PREF_KEY) || 'null') || { baseLink: DEFAULT_LINK, template: DEFAULT_TEMPLATE };
 let guests = [];
 let currentFilter = 'all';
+const ITEMS_PER_PAGE = 15;
+let currentPage = 1;
 
 const setupModal = document.getElementById('setupModal');
 const mainApp = document.getElementById('mainApp');
@@ -586,6 +615,7 @@ function buildTabs() {
   [...tabsEl.querySelectorAll('.tab')].forEach(t => {
     t.addEventListener('click', () => {
       currentFilter = t.dataset.filter;
+      currentPage = 1;
       buildTabs();
       renderList();
     });
@@ -601,10 +631,19 @@ function renderList() {
     : guests.filter(g => g.oleh === currentFilter)
   ).reverse();
 
+  const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
+
+  if (currentPage > totalPages) {
+    currentPage = totalPages;
+  }
+
+  const start = (currentPage - 1) * ITEMS_PER_PAGE;
+  const pageGuests = filtered.slice(start, start + ITEMS_PER_PAGE);
+
   listEl.innerHTML = '';
   emptyEl.style.display = filtered.length === 0 ? 'block' : 'none';
 
-  filtered.forEach(guest => {
+  pageGuests.forEach(guest => {
     const link = `${prefs.baseLink}?to=${slugify(guest.nama)}`;
     const el = document.createElement('div');
     el.className = 'guest' + (guest.copied ? ' copied' : '');
@@ -631,6 +670,30 @@ function renderList() {
   document.getElementById('statTotal').textContent = total;
   document.getElementById('statDone').textContent = done;
   document.getElementById('statPending').textContent = total - done;
+
+  const pagination = document.getElementById("pagination");
+
+  pagination.innerHTML = `
+      <button ${currentPage === 1 ? "disabled" : ""} id="prevPage">
+          ← Sebelumnya
+      </button>
+
+      <span>Halaman ${currentPage} / ${totalPages}</span>
+
+      <button ${currentPage === totalPages ? "disabled" : ""} id="nextPage">
+          Berikutnya →
+      </button>
+  `;
+
+  document.getElementById("prevPage")?.addEventListener("click", () => {
+      currentPage--;
+      renderList();
+  });
+
+  document.getElementById("nextPage")?.addEventListener("click", () => {
+      currentPage++;
+      renderList();
+  });
 }
 
 function escapeHtml(str) {
