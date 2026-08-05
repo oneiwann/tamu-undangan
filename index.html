@@ -1,147 +1,649 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Link Undangan Digital</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f4f7f6;
-            color: #333;
-            line-height: 1.6;
-            padding: 20px;
-        }
-        .container {
-            max-width: 700px;
-            margin: auto;
-            background-color: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        h1, h2 {
-            text-align: center;
-            color: #555;
-        }
-        textarea, input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-            box-sizing: border-box;
-        }
-        .form-section {
-            background-color: #fafafa;
-            padding: 20px;
-            border: 1px dashed #ccc;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        .form-section h3 {
-            margin-top: 0;
-            color: #777;
-        }
-        .button-group {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-        button {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-        .whatsapp-btn {
-            background-color: #25D366;
-            color: white;
-        }
-        .whatsapp-btn:hover {
-            background-color: #128C7E;
-        }
-        .copy-btn {
-            background-color: #007bff;
-            color: white;
-        }
-        .copy-btn:hover {
-            background-color: #0056b3;
-        }
-        .note {
-            font-size: 12px;
-            color: #999;
-            text-align: center;
-            margin-top: 20px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daftar Tamu — Undangan Pernikahan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#FBF6EC;
+    --paper:#FFFDF8;
+    --maroon:#6E1F2B;
+    --maroon-dark:#531622;
+    --gold:#B4903F;
+    --ink:#2B2420;
+    --ink-soft:#6B5F52;
+    --line:#E7DCC8;
+    --success:#3F6B4E;
+    --success-bg:#EAF2EC;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--ivory);
+    background-image:
+      radial-gradient(circle at 10% 0%, rgba(180,144,63,0.08), transparent 40%),
+      radial-gradient(circle at 90% 10%, rgba(110,31,43,0.06), transparent 35%);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    min-height:100vh;
+    padding:32px 16px 80px;
+  }
+  .wrap{max-width:880px;margin:0 auto;}
+
+  header{
+    text-align:center;
+    margin-bottom:28px;
+    padding-bottom:24px;
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow{
+    font-size:11px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Cormorant Garamond', serif;
+    font-size:36px;
+    font-weight:600;
+    margin:0 0 8px;
+    color:var(--maroon-dark);
+  }
+  header p{color:var(--ink-soft);font-size:14px;margin:0;}
+
+  .whoami{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    margin-top:14px;
+    font-size:12.5px;
+    color:var(--ink-soft);
+  }
+  .whoami b{color:var(--maroon-dark);}
+  .whoami button{
+    background:none;border:none;color:var(--gold);
+    font-weight:600;cursor:pointer;font-size:12.5px;
+    text-decoration:underline;padding:0;
+  }
+
+  .card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:22px 24px;
+    margin-bottom:20px;
+    box-shadow:0 1px 2px rgba(43,36,32,0.04);
+  }
+  .card h2{
+    font-family:'Cormorant Garamond', serif;
+    font-size:20px;
+    font-weight:600;
+    margin:0 0 4px;
+    color:var(--maroon-dark);
+  }
+  .card .hint{font-size:12.5px;color:var(--ink-soft);margin:0 0 16px;}
+
+  details.card{padding:0;}
+  details.card summary{
+    list-style:none;
+    cursor:pointer;
+    padding:18px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    font-family:'Cormorant Garamond', serif;
+    font-size:20px;
+    font-weight:600;
+    color:var(--maroon-dark);
+  }
+  details.card summary::-webkit-details-marker{display:none;}
+  details.card summary:after{
+    content:'⌄';
+    font-size:20px;
+    color:var(--gold);
+    transition:transform .2s ease;
+    font-family:'Inter',sans-serif;
+  }
+  details.card[open] summary:after{transform:rotate(180deg);}
+  details.card .inner{padding:0 24px 22px;}
+
+  label{
+    display:block;
+    font-size:12px;
+    font-weight:600;
+    color:var(--ink-soft);
+    margin:14px 0 6px;
+  }
+  label:first-child{margin-top:0;}
+  input[type=text], input[type=password], textarea{
+    width:100%;
+    font-family:'Inter',sans-serif;
+    font-size:14px;
+    padding:10px 12px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--ivory);
+    color:var(--ink);
+    resize:vertical;
+  }
+  input:focus, textarea:focus{
+    outline:2px solid var(--gold);
+    outline-offset:1px;
+    background:#fff;
+  }
+  textarea{min-height:120px;line-height:1.5;}
+
+  button{
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:13.5px;
+    border:none;
+    border-radius:8px;
+    padding:10px 16px;
+    cursor:pointer;
+    transition:transform .08s ease, background .15s ease;
+  }
+  button:disabled{opacity:.5;cursor:not-allowed;}
+  button:active:not(:disabled){transform:translateY(1px);}
+  .btn-primary{background:var(--maroon);color:#fff;}
+  .btn-primary:hover:not(:disabled){background:var(--maroon-dark);}
+  .btn-ghost{background:transparent;color:var(--maroon-dark);border:1px solid var(--line);}
+  .btn-ghost:hover{border-color:var(--gold);}
+  .btn-save{margin-top:14px;background:var(--gold);color:#3a2c0f;}
+  .btn-save:hover{filter:brightness(0.95);}
+
+  .stats{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+  .stat{
+    flex:1;min-width:120px;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:14px 12px;
+    text-align:center;
+  }
+  .stat .num{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:var(--maroon-dark);}
+  .stat .lbl{font-size:10.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em;margin-top:2px;}
+
+  .tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+  .tab{
+    padding:8px 14px;border-radius:20px;
+    border:1px solid var(--line);
+    background:var(--paper);
+    font-size:12.5px;font-weight:600;color:var(--ink-soft);
+    cursor:pointer;
+  }
+  .tab.active{background:var(--maroon);border-color:var(--maroon);color:#fff;}
+
+  .guest-list{display:flex;flex-direction:column;gap:10px;}
+  .guest{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:14px 16px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .guest.copied{border-color:var(--success);background:var(--success-bg);}
+  .seal{
+    width:30px;height:30px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+    border:1.5px solid var(--line);
+    color:var(--ink-soft);
+    font-size:14px;
+    background:#fff;
+  }
+  .guest.copied .seal{background:var(--success);border-color:var(--success);color:#fff;}
+  .guest-info{flex:1;min-width:0;}
+  .guest-name-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .guest-name{font-weight:600;font-size:14.5px;}
+  .badge{
+    font-size:10px;font-weight:700;
+    padding:2px 8px;border-radius:20px;
+    background:var(--ivory);border:1px solid var(--line);
+    color:var(--maroon-dark);
+    text-transform:uppercase;letter-spacing:.03em;
+  }
+  .guest-link{font-size:12px;color:var(--ink-soft);word-break:break-all;}
+  .guest-status{font-size:11px;color:var(--ink-soft);margin-top:2px;}
+  .guest.copied .guest-status{color:var(--success);font-weight:600;}
+  .guest-actions{display:flex;gap:8px;flex-shrink:0;}
+  .icon-btn{
+    background:transparent;border:1px solid var(--line);
+    width:34px;height:34px;border-radius:8px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:15px;color:var(--ink-soft);padding:0;
+  }
+  .icon-btn:hover{border-color:var(--gold);color:var(--maroon-dark);}
+  .icon-btn.danger:hover{border-color:#B3413B;color:#B3413B;}
+
+  .empty, .loading{text-align:center;padding:40px 20px;color:var(--ink-soft);font-size:13.5px;}
+
+  .toast{
+    position:fixed;bottom:24px;left:50%;
+    transform:translateX(-50%) translateY(12px);
+    background:var(--ink);color:#fff;
+    padding:10px 18px;border-radius:8px;font-size:13px;
+    opacity:0;pointer-events:none;
+    transition:opacity .18s ease, transform .18s ease;
+    max-width:90vw;text-align:center;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  /* Setup modal */
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(43,36,32,0.55);
+    display:flex;align-items:center;justify-content:center;
+    padding:20px;z-index:100;
+  }
+  .modal{
+    background:var(--paper);border-radius:16px;
+    padding:28px 26px;max-width:420px;width:100%;
+    border:1px solid var(--line);
+  }
+  .modal h2{
+    font-family:'Cormorant Garamond', serif;
+    font-size:24px;color:var(--maroon-dark);margin:0 0 6px;
+  }
+  .modal p{font-size:13px;color:var(--ink-soft);margin:0 0 18px;line-height:1.5;}
+  .name-options{display:flex;gap:8px;margin-top:6px;}
+  .name-options button{
+    flex:1;background:var(--ivory);border:1px solid var(--line);color:var(--ink);
+  }
+  .name-options button.selected{background:var(--maroon);color:#fff;border-color:var(--maroon);}
+  .modal .btn-primary{width:100%;margin-top:18px;padding:12px;}
+  .modal-error{color:#B3413B;font-size:12.5px;margin-top:8px;display:none;}
+
+  @media (max-width:480px){
+    h1{font-size:28px;}
+    .guest{flex-wrap:wrap;}
+    .guest-actions{width:100%;justify-content:flex-end;}
+  }
+</style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Pembuat Link Undangan Digital</h1>
-    <p class="note">Catatan: semua yang dibawah textarea ini bisa di ubah sesuai dengan keinginan kecuali bagian *Tamu Undangan* karena itu akan otomatis ganti nama seperti yang kamu masukan di bagian nama penerima undangan</p>
-    <hr>
-    <div class="form-section">
-        <h3>Teks Pembuka</h3>
-        <textarea id="introTextarea" rows="12">Yth. Bapak/Ibu/Saudara/i
-*Tamu Undangan*
+<div class="modal-overlay" id="setupModal">
+  <div class="modal">
+    <h2>Masuk ke Daftar Tamu</h2>
+
+    <label for="setupPin">PIN Akses</label>
+    <input type="password" id="setupPin" placeholder="Masukkan PIN">
+
+    <label>Kamu siapa?</label>
+    <div class="name-options" id="nameOptions">
+      <button type="button" data-name="Iwan">Iwan</button>
+      <button type="button" data-name="Ifah">Ifah</button>
+    </div>
+    <input type="text" id="customName" placeholder="Atau ketik nama lain" style="margin-top:8px;">
+
+    <button class="btn-primary" id="setupSubmit">Masuk</button>
+    <div class="modal-error" id="setupError">PIN salah atau URL tidak valid, coba lagi.</div>
+  </div>
+</div>
+
+<div class="wrap" id="mainApp" style="display:none;">
+
+  <header>
+    <div class="eyebrow">Alat Bantu Pribadi</div>
+    <h1>Daftar Tamu Undangan</h1>
+    <p>Kelola nama tamu, salin pesan undangan yang sudah terisi otomatis</p>
+    <div class="whoami">Masuk sebagai <b id="whoamiName">—</b> · <button id="switchUser">ganti</button></div>
+  </header>
+
+  <details class="card" id="settingsCard">
+    <summary>Pengaturan Link &amp; Template Pesan</summary>
+    <div class="inner">
+      <label for="baseLink">Link undangan (tanpa parameter nama)</label>
+      <input type="text" id="baseLink" placeholder="https://wedding-iwan-ifah.netlify.app">
+
+      <label for="template">Template pesan — gunakan <code>{{nama}}</code> untuk nama tamu dan <code>{{link}}</code> untuk link undangan personal</label>
+      <textarea id="template" rows="14"></textarea>
+
+      <button class="btn-save" id="saveSettings">Simpan Pengaturan</button>
+    </div>
+  </details>
+
+  <div class="card">
+    <h2>Tambah Tamu</h2>
+    <p class="hint">Satu nama per baris untuk tambah banyak sekaligus. Akan ditandai sebagai ditambahkan oleh <b id="addAsName">—</b>.</p>
+    <textarea id="newNames" rows="3" placeholder="Budi Santoso&#10;Siti Aminah"></textarea>
+    <button class="btn-primary" id="addBtn" style="margin-top:12px;">Tambah ke Daftar</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="num" id="statTotal">0</div><div class="lbl">Total</div></div>
+    <div class="stat"><div class="num" id="statDone">0</div><div class="lbl">Disalin</div></div>
+    <div class="stat"><div class="num" id="statPending">0</div><div class="lbl">Belum</div></div>
+  </div>
+
+  <div class="tabs" id="tabs">
+    <div class="tab active" data-filter="all">Semua</div>
+  </div>
+
+  <div class="loading" id="loadingState">Memuat data…</div>
+  <div class="guest-list" id="guestList"></div>
+  <div class="empty" id="emptyState" style="display:none;">Belum ada tamu. Tambahkan nama di atas ✦</div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DEFAULT_TEMPLATE = `Yth. Bapak/Ibu/Saudara/i
+{{nama}}
 Di Tempat
 ---------------------------
-_Assalamualaikum Wr. Wb._
+Assalamualaikum Wr. Wb.
 Dengan segala kerendahan hati,
 kami mengundang Bapak/Ibu/Saudara/i dan teman-teman untuk menghadiri acara,
 =============
-*nikahan*
+nikahan
 =============
-*♥Save The Date♥*
+♥️Save The Date♥️
 ----------------
-_Pada_
-📅 Tanggal : *Rabu, 01 Oktober 2025*
-🕘 Pukul : *10:00 – Selesai*
-_Tempat_ 
-🏠 *Lihat pada linkundangan dibawah.*
+Pada
+📅 Tanggal : Senin, 14 September 2026
+🕘 Pukul : 08:00 – Selesai
+📌 Lokasi : Kalimeneng, Girigondo, Pituruh
 -----------------
-Untuk detail acaranya, bisa kunjungi link berikut.👇</textarea>
-    </div>
-
-    <div class="form-section">
-        <h3>Detail Undangan</h3>
-        <label for="guestName">Nama Penerima Undangan:</label>
-        <input type="text" id="guestName" placeholder="Masukkan nama tamu">
-        <label for="linkUrl">URL Undangan:</label>
-        <input type="text" id="linkUrl" value="https://wedding-iwan-ifah.netlify.app/" placeholder="Masukkan URL undangan">
-    </div>
-
-    <div class="form-section">
-        <h3>Teks Penutup</h3>
-        <textarea id="closingTextarea" rows="6">Kami sangat berharap Bapak/Ibu/Saudara/i dan teman-teman dapat menghadiri acara tersebut,
+Untuk detail acaranya, bisa kunjungi link berikut.👇
+{{link}}
+Kami sangat berharap Bapak/Ibu/Saudara/i dan teman-teman dapat menghadiri acara tersebut,
 --------------------------------
 Wassalamualaikum Wr. Wb,
 🙏 Hormat Kami,
-*Penyelenggara*</textarea>
-    </div>
+Gunawan & Chafifah`;
 
-    <div class="button-group">
-        <button class="whatsapp-btn" onclick="shareOnWhatsApp()">
-            <img src="https://img.icons8.com/color/24/000000/whatsapp--v1.png" alt="WhatsApp Icon" style="vertical-align: middle; margin-right: 8px;">
-            Bagikan Via Whatsapp
-        </button>
-        <button class="copy-btn" onclick="copyToClipboard()">
-            <img src="https://img.icons8.com/material-outlined/24/ffffff/copy.png" alt="Copy Icon" style="vertical-align: middle; margin-right: 8px;">
-            Salin Teks
-        </button>
-    </div>
-    
-    <div class="note">
-        <p>Catatan: Perubahan teks pembuka & teks penutup akan disimpan setiap kali menekan tombol Bagikan atau Salin.</p>
-    </div>
-</div>
-<script src="script.js"></script>
+const DEFAULT_LINK = "https://wedding-iwan-ifah.netlify.app";
+const AUTH_KEY = "undangan_auth_v1";
+const PREF_KEY = "undangan_prefs_v1";
+const API_URL = "https://script.google.com/macros/s/AKfycby7mVgCUzzmsURl-xO0m_R5l8G0eqRafOQPMd0acCBI3ckO2Jnr63sWnpXNV5QqA0xK/exec";
+
+let auth = JSON.parse(localStorage.getItem(AUTH_KEY) || 'null');
+let prefs = JSON.parse(localStorage.getItem(PREF_KEY) || 'null') || { baseLink: DEFAULT_LINK, template: DEFAULT_TEMPLATE };
+let guests = [];
+let currentFilter = 'all';
+
+const setupModal = document.getElementById('setupModal');
+const mainApp = document.getElementById('mainApp');
+const toast = document.getElementById('toast');
+
+// ---------- Setup / Auth ----------
+let selectedName = '';
+document.getElementById('nameOptions').addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-name]');
+  if (!btn) return;
+  selectedName = btn.dataset.name;
+  document.getElementById('customName').value = '';
+  [...document.querySelectorAll('#nameOptions button')].forEach(b => b.classList.toggle('selected', b === btn));
+});
+document.getElementById('customName').addEventListener('input', (e) => {
+  if (e.target.value.trim()) {
+    selectedName = e.target.value.trim();
+    [...document.querySelectorAll('#nameOptions button')].forEach(b => b.classList.remove('selected'));
+  }
+});
+
+document.getElementById('setupSubmit').addEventListener('click', async () => {
+  const pin = document.getElementById('setupPin').value.trim();
+  const errEl = document.getElementById('setupError');
+  errEl.style.display = 'none';
+
+  if (!pin || !selectedName) {
+    errEl.textContent = 'Lengkapi URL, PIN, dan nama kamu dulu ya.';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  const btn = document.getElementById('setupSubmit');
+  btn.disabled = true;
+  btn.textContent = 'Memeriksa…';
+
+  try {
+    const res = await apiCall(API_URL, pin, 'list');
+    if (!res.success) throw new Error(res.error || 'Gagal terhubung');
+    auth = {
+      pin,
+      name: selectedName
+    };
+    localStorage.setItem(AUTH_KEY, JSON.stringify(auth));
+    startApp();
+  } catch (e) {
+    errEl.textContent = 'Gagal terhubung: ' + e.message;
+    errEl.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Masuk';
+  }
+});
+
+document.getElementById('switchUser').addEventListener('click', () => {
+  localStorage.removeItem(AUTH_KEY);
+  location.reload();
+});
+
+// ---------- API ----------
+async function apiCall(url, pin, action, extraParams = {}) {
+  const params = new URLSearchParams({ action, pin, ...extraParams });
+  const res = await fetch(`${url}?${params.toString()}`);
+  return res.json();
+}
+
+async function api(action, extraParams = {}) {
+  return apiCall(API_URL, auth.pin, action, extraParams);
+}
+
+// ---------- App bootstrap ----------
+if (auth && auth.pin && auth.name) {
+    startApp();
+}
+
+function startApp() {
+  setupModal.style.display = 'none';
+  mainApp.style.display = 'block';
+  document.getElementById('whoamiName').textContent = auth.name;
+  document.getElementById('addAsName').textContent = auth.name;
+  document.getElementById('baseLink').value = prefs.baseLink;
+  document.getElementById('template').value = prefs.template;
+  loadGuests();
+}
+
+// ---------- Settings ----------
+document.getElementById('saveSettings').addEventListener('click', () => {
+  prefs.baseLink = document.getElementById('baseLink').value.trim() || DEFAULT_LINK;
+  prefs.template = document.getElementById('template').value || DEFAULT_TEMPLATE;
+  localStorage.setItem(PREF_KEY, JSON.stringify(prefs));
+  showToast('Pengaturan disimpan');
+  document.getElementById('settingsCard').open = false;
+  renderList();
+});
+
+// ---------- Data ----------
+async function loadGuests() {
+  document.getElementById('loadingState').style.display = 'block';
+  document.getElementById('guestList').innerHTML = '';
+  try {
+    const res = await api('list');
+    if (!res.success) throw new Error(res.error);
+    guests = res.data;
+    buildTabs();
+    renderList();
+  } catch (e) {
+    showToast('Gagal memuat data: ' + e.message);
+  } finally {
+    document.getElementById('loadingState').style.display = 'none';
+  }
+}
+
+document.getElementById('addBtn').addEventListener('click', async () => {
+  const raw = document.getElementById('newNames').value;
+  const lines = raw.split('\n').map(s => s.trim()).filter(Boolean);
+  if (lines.length === 0) return;
+  const btn = document.getElementById('addBtn');
+  btn.disabled = true;
+  btn.textContent = 'Menambahkan…';
+  try {
+    for (const nama of lines) {
+      const res = await api('add', { nama, oleh: auth.name });
+      if (res.success) guests.push(res.data);
+    }
+    document.getElementById('newNames').value = '';
+    buildTabs();
+    renderList();
+    showToast(lines.length > 1 ? `${lines.length} tamu ditambahkan` : 'Tamu ditambahkan');
+  } catch (e) {
+    showToast('Gagal menambah: ' + e.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Tambah ke Daftar';
+  }
+});
+
+function slugify(name) {
+  return encodeURIComponent(name.trim());
+}
+
+function buildMessage(guest) {
+  const link = `${prefs.baseLink}?to=${slugify(guest.nama)}`;
+  return prefs.template.replaceAll('{{nama}}', guest.nama).replaceAll('{{link}}', link);
+}
+
+function showToast(msg) {
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(() => toast.classList.remove('show'), 2200);
+}
+
+async function copyGuest(id) {
+  const guest = guests.find(g => g.id === id);
+  if (!guest) return;
+  const text = buildMessage(guest);
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (e) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  }
+  showToast(`Pesan untuk ${guest.nama} disalin ✓`);
+  try {
+    const res = await api('markCopied', { id });
+    if (res.success) {
+      guest.copied = true;
+      guest.copiedAt = res.data.copiedAt;
+      renderList();
+    }
+  } catch (e) { /* copy sudah berhasil di clipboard, status tinggal disinkron ulang nanti */ }
+}
+
+async function toggleCopied(id) {
+  try {
+    const res = await api('toggle', { id });
+    if (res.success) {
+      const guest = guests.find(g => g.id === id);
+      guest.copied = res.data.copied;
+      guest.copiedAt = res.data.copiedAt;
+      renderList();
+    }
+  } catch (e) { showToast('Gagal update status'); }
+}
+
+async function removeGuest(id) {
+  const guest = guests.find(g => g.id === id);
+  if (!guest) return;
+  if (!confirm(`Hapus ${guest.nama} dari daftar?`)) return;
+  try {
+    const res = await api('delete', { id });
+    if (res.success) {
+      guests = guests.filter(g => g.id !== id);
+      buildTabs();
+      renderList();
+      showToast('Tamu dihapus');
+    }
+  } catch (e) { showToast('Gagal menghapus'); }
+}
+
+// ---------- Tabs / filter ----------
+function buildTabs() {
+  const names = [...new Set(guests.map(g => g.oleh).filter(Boolean))];
+  const tabsEl = document.getElementById('tabs');
+  tabsEl.innerHTML = `<div class="tab ${currentFilter === 'all' ? 'active' : ''}" data-filter="all">Semua</div>`;
+  names.forEach(n => {
+    tabsEl.innerHTML += `<div class="tab ${currentFilter === n ? 'active' : ''}" data-filter="${escapeHtml(n)}">Punya ${escapeHtml(n)}</div>`;
+  });
+  [...tabsEl.querySelectorAll('.tab')].forEach(t => {
+    t.addEventListener('click', () => {
+      currentFilter = t.dataset.filter;
+      buildTabs();
+      renderList();
+    });
+  });
+}
+
+// ---------- Render ----------
+function renderList() {
+  const listEl = document.getElementById('guestList');
+  const emptyEl = document.getElementById('emptyState');
+  const filtered = currentFilter === 'all' ? guests : guests.filter(g => g.oleh === currentFilter);
+
+  listEl.innerHTML = '';
+  emptyEl.style.display = filtered.length === 0 ? 'block' : 'none';
+
+  filtered.forEach(guest => {
+    const link = `${prefs.baseLink}?to=${slugify(guest.nama)}`;
+    const el = document.createElement('div');
+    el.className = 'guest' + (guest.copied ? ' copied' : '');
+    el.innerHTML = `
+      <div class="seal">${guest.copied ? '✓' : '✦'}</div>
+      <div class="guest-info">
+        <div class="guest-name-row">
+          <span class="guest-name">${escapeHtml(guest.nama)}</span>
+          ${guest.oleh ? `<span class="badge">${escapeHtml(guest.oleh)}</span>` : ''}
+        </div>
+        <div class="guest-status">${guest.copied ? 'Disalin · ' + guest.copiedAt : 'Belum disalin'}</div>
+      </div>
+      <div class="guest-actions">
+        <button class="icon-btn" title="Tandai manual" data-action="toggle" data-id="${guest.id}">${guest.copied ? '↺' : '✓'}</button>
+        <button class="btn-primary" data-action="copy" data-id="${guest.id}">Salin Pesan</button>
+        <button class="icon-btn danger" title="Hapus" data-action="delete" data-id="${guest.id}">✕</button>
+      </div>
+    `;
+    listEl.appendChild(el);
+  });
+
+  const total = guests.length;
+  const done = guests.filter(g => g.copied).length;
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statDone').textContent = done;
+  document.getElementById('statPending').textContent = total - done;
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+document.getElementById('guestList').addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-action]');
+  if (!btn) return;
+  const { action, id } = btn.dataset;
+  if (action === 'copy') copyGuest(id);
+  if (action === 'toggle') toggleCopied(id);
+  if (action === 'delete') removeGuest(id);
+});
+</script>
 </body>
 </html>
