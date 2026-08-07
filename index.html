@@ -665,8 +665,8 @@ function renderList() {
     listEl.appendChild(el);
   });
 
-  const total = guests.length;
-  const done = guests.filter(g => g.copied).length;
+  const total = filtered.length;
+  const done = filtered.filter(g => g.copied).length;
   document.getElementById('statTotal').textContent = total;
   document.getElementById('statDone').textContent = done;
   document.getElementById('statPending').textContent = total - done;
