@@ -285,6 +285,11 @@
       color:var(--ink-soft);
   }
 
+  #searchInput { width:auto; padding:8px 10px; margin:8px 0; border-radius:8px; border:1px solid var(--line);}
+  .alphabet-bar { display:flex; flex-wrap:wrap; gap:4px; margin-bottom:8px; margin-top:24px;}
+  .alphabet-bar .letter { padding:4px 8px; border-radius:6px; cursor:pointer; font-size:12px;border:1px solid var(--line);background:var(--paper); color:var(--maroon-dark);}
+  .alphabet-bar .letter.active { background:var(--maroon); color:#fff; }
+
   @media (max-width:480px){
     h1{font-size:28px;}
     .guest{flex-wrap:wrap;}
@@ -347,15 +352,16 @@
     <div class="stat"><div class="num" id="statDone">0</div><div class="lbl">Disalin</div></div>
     <div class="stat"><div class="num" id="statPending">0</div><div class="lbl">Belum</div></div>
   </div>
-
   <div class="tabs" id="tabs">
     <div class="tab active" data-filter="all">Semua</div>
   </div>
+  <input type="text" id="searchInput" placeholder="Cari nama tamu...">
 
   <div class="loading" id="loadingState">Memuat data…</div>
   <div class="guest-list" id="guestList"></div>
   <div id="pagination" class="pagination"></div>
   <div class="empty" id="emptyState" style="display:none;">Belum ada tamu. Tambahkan nama di atas ✦</div>
+  <div class="alphabet-bar" id="alphabetBar"></div>
 
 </div>
 
@@ -398,6 +404,8 @@ let auth = JSON.parse(localStorage.getItem(AUTH_KEY) || 'null');
 let prefs = JSON.parse(localStorage.getItem(PREF_KEY) || 'null') || { baseLink: DEFAULT_LINK, template: DEFAULT_TEMPLATE };
 let guests = [];
 let currentFilter = 'all';
+let searchQuery = '';
+let currentLetter = 'all';
 const ITEMS_PER_PAGE = 15;
 let currentPage = 1;
 
@@ -511,6 +519,9 @@ async function loadGuests() {
     document.getElementById('loadingState').style.display = 'none';
   }
 }
+buildTabs();
+buildAlphabetBar();
+renderList();
 
 document.getElementById('addBtn').addEventListener('click', async () => {
   const raw = document.getElementById('newNames').value;
@@ -534,6 +545,12 @@ document.getElementById('addBtn').addEventListener('click', async () => {
     btn.disabled = false;
     btn.textContent = 'Tambah ke Daftar';
   }
+});
+
+document.getElementById('searchInput').addEventListener('input', (e) => {
+  searchQuery = e.target.value.trim().toLowerCase();
+  currentPage = 1;
+  renderList();
 });
 
 function slugify(name) {
@@ -622,14 +639,31 @@ function buildTabs() {
   });
 }
 
+function buildAlphabetBar() {
+  const bar = document.getElementById('alphabetBar');
+  const letters = ['all', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')];
+  bar.innerHTML = letters.map(l =>
+    `<span class="letter ${currentLetter === l ? 'active' : ''}" data-letter="${l}">${l === 'all' ? 'Semua' : l}</span>`
+  ).join('');
+  [...bar.querySelectorAll('.letter')].forEach(el => {
+    el.addEventListener('click', () => {
+      currentLetter = el.dataset.letter;
+      currentPage = 1;
+      buildAlphabetBar();
+      renderList();
+    });
+  });
+}
+
 // ---------- Render ----------
 function renderList() {
   const listEl = document.getElementById('guestList');
   const emptyEl = document.getElementById('emptyState');
-  const filtered = (currentFilter === 'all'
-    ? [...guests]
-    : guests.filter(g => g.oleh === currentFilter)
-  ).reverse();
+  const filtered = guests
+    .filter(g => currentFilter === 'all' || g.oleh === currentFilter)
+    .filter(g => currentLetter === 'all' || g.nama.trim().toUpperCase().startsWith(currentLetter))
+    .filter(g => !searchQuery || g.nama.toLowerCase().includes(searchQuery))
+    .reverse();
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
 
